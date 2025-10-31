@@ -13,7 +13,7 @@ st.markdown("---")
 
 ## 1. 유리함수 계수 입력 (일반형)
 st.header("1. 유리함수 계수 입력 (일반형)")
-st.write("변환하고 싶은 이차함수의 계수 $a, b, c, d$를 입력해 주세요.")
+st.write("변환하고 싶은 유리함수의 계수 $a, b, c, d$를 입력해 주세요.")
 
 # 계수 입력 위젯
 col1, col2, col3, col4 = st.columns(4)
@@ -45,12 +45,16 @@ numerator_k_prime = b - a * d / c
 k = numerator_k_prime / c
 p = -d / c
 
-# --- LaTeX 출력에 사용할 포맷팅된 변수 생성 (SyntaxError 방지) ---
+# =========================================================================
+# ⭐ NameError 및 SyntaxError 방지를 위한 포맷팅 변수 정의 ⭐
+# 이 부분이 누락되지 않도록 주의해야 합니다.
+# =========================================================================
 q_fmt = f"{q:.2f}"
-num_k_prime_fmt = f"{numerator_k_prime:.2f}"
+numerator_k_prime_fmt = f"{numerator_k_prime:.2f}"
 p_fmt = f"{p:.2f}"
 k_fmt = f"{k:.2f}"
 d_div_c_fmt = f"{d/c:.2f}"
+num_k_prime_fmt = f"{numerator_k_prime:.2f}" # num_k_prime_fmt 변수도 안전하게 정의
 
 st.write("1. **다항식의 나눗셈**을 이용하여 분자를 분모로 변형합니다.")
 st.markdown(f"$\\quad y = \\frac{{{a}x + {b}}}{{{c}x + {d}}} = \\frac{{ {q_fmt} ({c}x + {d}) + ({num_k_prime_fmt}) }}{{{c}x + {d}}}$")
@@ -59,9 +63,8 @@ st.write("2. 분리하여 **$q$ 값(수평 점근선)**을 찾습니다.")
 st.markdown(f"$\\quad y = \\frac{{{q_fmt} ({c}x + {d})}}{{{c}x + {d}}} + \\frac{{{num_k_prime_fmt}}}{{{c}x + {d}}} = {q_fmt} + \\frac{{{num_k_prime_fmt}}}{{{c}x + {d}}}$")
 
 st.write("3. 분모를 $c$로 묶어 **$k$와 $p$ 값**을 찾습니다.")
-# ********** 이 부분이 이전에 오류가 났던 부분입니다. 포맷팅된 변수 사용으로 수정되었습니다. **********
+# ⭐ 오류 발생 라인 수정 완료 (포맷팅 변수 사용) ⭐
 st.markdown(f"$\\quad y = {q_fmt} + \\frac{{{num_k_prime_fmt}}}{{{c}(x + {d_div_c_fmt})}} = {q_fmt} + \\frac{{\\frac{{{num_k_prime_fmt}}}{{{c}}}}}{(x - ({p_fmt}))}$")
-# *****************************************************************************************
 
 st.success(f"**변환된 표준형:** $\\mathbf{{y = \\frac{{{k_fmt}}}{{x - ({p_fmt})}} + {q_fmt}}}$")
 
@@ -113,4 +116,4 @@ st.pyplot(fig)
 
 
 st.markdown("---")
-st.info("**팁:** $a, b, c, d$ 값을 변경해 보면서 변환 과정과 점근선의 변화를 관찰해 보세요! 특히 $k$ 값의 부호가 그래프의 위치에 미치는 영향을 주목하세요.")
+st.info("**팁:** $a, b, c, d$ 값을 변경해 보면서 변환 과정과 점근선의 변화를 관찰해 보세요!")
